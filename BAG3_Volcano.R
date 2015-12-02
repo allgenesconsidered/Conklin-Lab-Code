@@ -93,12 +93,4 @@ ggplot() +
         plot.background = element_rect(fill = 'black',colour = 'black'),
         panel.background = element_rect(fill = 'black'))
 
-ggplot() + 
-  geom_bar(data = sigBAG3, aes(x = log2FoldChange, y = id)) 
-library('biomaRt')
-ensembl = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
-genes <- res$id
-G_list <- getBM(filters= "ensembl_gene_id", attributes= c("ensembl_gene_id", "external_gene_name"),values=genes,mart= ensembl)
-res <- merge(res,G_list,by = 1 ,all = TRUE)
-
 ggsave(filename = 'BAG3_Volcano_black.png', width=7.3, height=6, dpi = 720)
