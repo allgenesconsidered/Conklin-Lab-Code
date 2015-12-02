@@ -1,10 +1,16 @@
+rpkm <- read.csv('./data/2015_11_19_rpm_RNAseq1.csv', stringsAsFactors = FALSE)
+graphTitles <- c("iPS WTC", "CRISPRn No Guide", "CRISPRi No Guide", "CRISPRi GcAMP", "CRISPRi BAG3", "CRISPRi aActinin")
+
+
 pairwiseRNASeqPlot <- function(RNAdata, xIndex, yIndex,
                                plotTitle = 'Graph Title',
                                xAxisTitle = 'Condition A (RPKM)',
                                yAxisTitle = 'Condition B (RPKM)',
-                               genesOfInterest = c('GCaMP6f', 'Oct4', "Sox2", 'Nanog'), 
-                               geneLabels = c('GCaMP6f', 'ENSG00000204531','ENSG00000181449','ENSG00000111704'),
-                               geneColors = c('forestgreen', 'steelblue', 'firebrick','maroon4') ){
+                               genesOfInterest = c('Oct4', "Sox2", 'Nanog', 'HERG','ROCK1','BAG3','GSK3B'), 
+                               geneLabels = c('ENSG00000204531','ENSG00000181449',
+                                              'ENSG00000111704','ENSG00000055118',
+                                              'ENSG00000067900','ENSG00000151929','ENSG00000100744'),
+                               geneColors = c('#d13632', '#1d829e', '#ec883a','#96bf33','#8a2aa7','#479e1b', '503fa9')){
   require(ggplot2)
   require(scales)
   require(grid)
@@ -14,7 +20,6 @@ pairwiseRNASeqPlot <- function(RNAdata, xIndex, yIndex,
   }
   geneIndex <- cbind(geneIndex, colors = geneColors)
   geneIndex$X <- genesOfInterest
-  
   pairwisePlot <- ggplot(data = RNAdata, aes(x = RNAdata[,xIndex], y = RNAdata[,yIndex]) ,
                          environment = environment()) +
     geom_abline(intercept = 0, slope = 1, size = 1, colour = 'grey0') +
